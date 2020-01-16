@@ -1,6 +1,3 @@
-const selectedBabelMode = process.env._BABEL_MODE;
-const selectedBuildMode = process.env.NODE_ENV;
-
 const path = require('path');
 const webpack = require('webpack');
 const { VueLoaderPlugin } = require('vue-loader');
@@ -11,8 +8,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+
+// Internal Dependencies
 const _ = require('./utils.js');
 const IgnoreOption = require('./plugins/empty-plugin');
+
+const selectedBabelMode = process.env._BABEL_MODE;
+const selectedBuildMode = process.env.NODE_ENV;
 
 console.log('  -- BABEL MODE SELECTED : ' + selectedBabelMode);
 
@@ -92,10 +94,13 @@ module.exports = {
     plugins: [
       new CleanWebpackPlugin(),
       new VueLoaderPlugin(),
-	    new CopyWebpackPlugin([{ from: _.cwd('./src/static'), to: './' }]),
+	    new CopyWebpackPlugin([{
+				from: _.cwd('./src/static'),
+				to: './' // related to output folder
+			}]),
       new HtmlWebpackPlugin({
-        title: 'Prova',
-				template: _.cwd('./build/templates/index.html'),
+        title: 'Vue.js Template',
+				template: _.cwd('./src/index.ejs'),
 				filename: _.cwd('./build/dist/index.html'),
         inject: true
       }),
@@ -109,7 +114,7 @@ module.exports = {
 		],
 
 		optimization: isProd ? {
-			namedModules: true, // NamedModulesPlugin()
+			namedModules: true,
 			concatenateModules: true,
 			usedExports: true,
 			splitChunks: {
@@ -129,7 +134,7 @@ module.exports = {
 					sourceMap: false,
 					parallel: true,
 					terserOptions: {
-						ecma: isModernBabel ? 8 : 5,
+						ecma: isModernBabel ? 2018 : 5,
 						warnings: false,
 						parse: {},
 						compress: {
@@ -149,6 +154,5 @@ module.exports = {
 				})
 			]
 		} : {}
-
 
 };
