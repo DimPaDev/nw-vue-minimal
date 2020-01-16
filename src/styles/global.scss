@@ -1,0 +1,19 @@
+*,*::before,*::after { box-sizing: border-box }
+* { margin: 0; padding: 0 }
+
+html {
+    font-size: 100%;
+    overflow: hidden;
+    margin: 5px;
+    height: -webkit-fill-available;
+    box-shadow: 0px 0px 3px 3px #00000033;
+    border-radius: 10px;
+}
+
+body {
+    overflow: hidden;
+    height: 100%;
+    border: 6px solid #e8e8e882;
+    box-shadow: inset 0px 0px 1px 1px #ffffff;
+    border-radius: 11px;
+}
