@@ -11,8 +11,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const _ = require('./build/utils.js');
-const IgnoreOption = require('./build/plugins/empty-plugin');
+const _ = require('./utils.js');
+const IgnoreOption = require('./plugins/empty-plugin');
 
 console.log('  -- BABEL MODE SELECTED : ' + selectedBabelMode);
 
@@ -23,11 +23,11 @@ const isProd = selectedBuildMode === 'production';
 
 module.exports = {
 
-    entry: './src/main.mjs',
+    entry: _.cwd('./src/main.mjs'),
 
     output: {
       filename: isModernBabel ? 'main.mjs' : 'main.es5.js',
-      path: _.cwd('./dist')
+      path: _.cwd('./build/dist')
     },
 
     module: {
@@ -92,11 +92,11 @@ module.exports = {
     plugins: [
       new CleanWebpackPlugin(),
       new VueLoaderPlugin(),
-	    new CopyWebpackPlugin([{ from: _.cwd('./static'), to: './' }]),
+	    new CopyWebpackPlugin([{ from: _.cwd('./src/static'), to: './' }]),
       new HtmlWebpackPlugin({
         title: 'Prova',
-				template: _.cwd('./index.html'),
-				filename: _.cwd('./dist/index.html'),
+				template: _.cwd('./build/templates/index.html'),
+				filename: _.cwd('./build/dist/index.html'),
         inject: true
       }),
       new ScriptExtHtmlWebpackPlugin({
@@ -149,6 +149,6 @@ module.exports = {
 				})
 			]
 		} : {}
-		
-		
+
+
 };
