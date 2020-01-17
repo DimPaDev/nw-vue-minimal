@@ -40,7 +40,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .app-titlebar {
 	-webkit-app-region: drag;
@@ -51,7 +51,7 @@ export default {
 	align-items: center;
 	justify-content: space-between;
 	max-height: 2em;
-	box-shadow: inset 0px 0px 1px 1px #fdfdfd70, 0px 0px 5px 1px #00000052;
+	box-shadow: inset 0px 0px 1px 1px #f7f7f770, 0px 0px 5px 1px #00000052;
 	border-radius: 5px 5px 0px 0px;
 }
 
