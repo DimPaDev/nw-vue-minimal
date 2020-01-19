@@ -13,31 +13,36 @@ const TerserPlugin = require('terser-webpack-plugin');
 const _ = require('./utils.js');
 const IgnoreOption = require('./plugins/empty-plugin');
 
-const selectedBabelMode = process.env._BABEL_MODE;
-const selectedBuildMode = process.env.NODE_ENV;
-
-console.log('  -- BABEL MODE SELECTED : ' + selectedBabelMode);
-
+const selectedBabelMode = 'modern';
 const isModernBabel = selectedBabelMode === 'modern';
-const isLegacyBabel = selectedBabelMode === 'legacy';
+
+const selectedBuildMode = process.env.NODE_ENV;
 const isDev = selectedBuildMode === 'development';
 const isProd = selectedBuildMode === 'production';
 
+const SRC = 'app/renderer';
+const DST = 'build/dist';
+
 module.exports = {
 
-    entry: _.cwd('./src/main.mjs'),
+		target: 'node-webkit',
+
+		entry: [
+			_.cwd(`./${SRC}/main.mjs`)
+		],
 
     output: {
       filename: isModernBabel ? 'main.mjs' : 'main.es5.js',
-      path: _.cwd('./build/dist')
+      path: _.cwd(`./${DST}`)
     },
 
     module: {
+
         rules: [
 					{
 						test: isModernBabel ? /\.m?js$/i : /\.js$/i,
 						use: {
-							loader: "babel-loader",
+							loader: 'babel-loader',
 							options: {
 								// Points to env.modern or env.legacy in babel.config.js
 								envName: isModernBabel ? 'modern' : 'legacy',
@@ -45,7 +50,7 @@ module.exports = {
 							}
 						},
 						include: [
-							_.cwd('./src'),
+							_.cwd(`./${SRC}`),
 							_.cwd('./node_modules/webpack-dev-server/client')
 						],
 						exclude: (modulePath) => {
@@ -70,7 +75,18 @@ module.exports = {
 								image: 'xlink:href'
 							}
 						}
-					}
+					},
+
+					{
+						test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+						loader: 'url-loader',
+						options: {
+							esModule: false,
+							limit: 10000,
+							name: _.assetsPath('static', 'img/[name].[hash:7].[ext]')
+						}
+					},
+
 			].concat(_.styleLoaders({
 					sourceMap: false,
 					extract: isProd,
@@ -82,27 +98,27 @@ module.exports = {
 			extensions: ['.js', '.vue', '.json'],
 			modules: [
 				'node_modules',
-				_.cwd(`./src`)
+				_.cwd(`./${SRC}`)
 			],
 			alias: {
 				vue: 'vue/dist/vue.js',
-				'@' : _.cwd('./src'),
-				'@components' : _.cwd('./src/components')
+				'@' : _.cwd(`./${SRC}`),
+				'@components' : _.cwd(`./${SRC}/components`)
 			}
     },
 
     plugins: [
       new CleanWebpackPlugin(),
       new VueLoaderPlugin(),
-	    new CopyWebpackPlugin([{
-				from: _.cwd('./src/static'),
-				to: './' // related to output folder
-			}]),
+	    new CopyWebpackPlugin([
+				{ from: _.cwd(`./${SRC}/static`), to: './' }
+			]),
       new HtmlWebpackPlugin({
         title: 'Vue.js Template',
-				template: _.cwd('./src/index.ejs'),
-				filename: _.cwd('./build/dist/index.html'),
-        inject: true
+				template: _.cwd(`./${SRC}/assets/templates/index.ejs`),
+				filename: _.cwd(`./${DST}/index.html`),
+				inject: true,
+				minify: true
       }),
       new ScriptExtHtmlWebpackPlugin({
         module: 'main.mjs',

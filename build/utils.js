@@ -93,8 +93,8 @@ exports.styleLoaders = options => {
 };
 
 exports.assetsPath = (dist, inputPath) => {
-    return path.posix.join(dist, inputPath);
+  return path.posix.join(dist, inputPath);
 };
-  
+
 
 

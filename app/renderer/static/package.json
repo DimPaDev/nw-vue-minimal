@@ -1,21 +1,18 @@
 {
 	"name": "nw-demo",
 	"version": "0.0.1",
-	"main": "index.html",
+	"main": "init.js",
 	"node-remote": "http://*/*",
 	"license": "MIT",
 	"nodejs": true,
 	"window": {
 		"width": 600,
 		"height": 600,
-		"frame": false,
-		"transparent": true,
+		"frame": true,
+		"transparent": false,
 		"position": "center",
 		"icon": "logo.png",
 		"resizable": true
-	},
-	"scripts": {
-		"nwjs": "nw ."
 	},
 	"chromium-args": ""
 }

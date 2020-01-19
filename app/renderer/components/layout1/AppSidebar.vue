@@ -18,16 +18,18 @@ export default {
 <style lang="scss" scoped>
 
   .app-sidebar {
-    background-color: #3771b740;
-    display: inline-flex;
+    display: block;
     width: 6em;
-    height: calc(100% - 3px);
-    justify-content: center;
-    align-items: center;
-    border-radius: 0px 0px 0px 6px;
+    height: 100%;
+    border-radius: 0px;
     color: white;
     text-shadow: 1px 1px 1px black;
-    margin: 1px;
+    margin: 0px;
+    padding: 1em;
+    border-right: 1px solid #8e7c7c;
+    background-color: #adadad45;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
 </style>

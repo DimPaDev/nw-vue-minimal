@@ -45,14 +45,15 @@ export default {
 .app-titlebar {
 	-webkit-app-region: drag;
 	font-family: Segoe Ui, Ubuntu, sans-serif;
-	background-color: rgba(230, 230, 230, 0.92);
+	background-color: rgba(242,244,245,0.7);
 	height: 2em;
-	display: flex;
+	// display: flex;
 	align-items: center;
 	justify-content: space-between;
 	max-height: 2em;
-	box-shadow: inset 0px 0px 1px 1px #f7f7f770, 0px 0px 5px 1px #00000052;
-	border-radius: 5px 5px 0px 0px;
+	box-shadow: inset 0px 0px 1px 1px #ffffff73, 0px 0px 0px 1px #0000002e;
+	border-radius: 0px 0px 0px 0px;
+	display: none;
 }
 
 .titlebar-text {
@@ -83,10 +84,11 @@ export default {
 	text-shadow: 1px 1px 1px white;
 	color: #585858;
 	border-left: 1px solid #c7c7c7;
-}
 
-.titlebar-control-btn:hover {
-	background-color: #dedede;
+	&:hover {
+		background-color: #8ad4ff4d;
+	}
+
 }
 
 </style>

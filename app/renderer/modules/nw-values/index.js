@@ -6,7 +6,7 @@ export default [
 	{ label: 'Platform', value: global.process.platform },
 	{ label: 'Session Desktop', value: global.process.env['XDG_SESSION_DESKTOP'] },
 	{ label: 'Session Type', value: global.process.env['XDG_SESSION_TYPE'] },
-	{ label: 'Chromium Arguments', value: nw.App.manifest["chromium-args"] },
+	// { label: 'Chromium Arguments', value: nw.App.manifest["chromium-args"] },
 	{ label: 'Is Native Frame', value: nw.App.manifest.window.frame },
 	{ label: 'Is Transparent Window', value: nw.App.manifest.window.transparent }
 ];
